@@ -21,7 +21,7 @@ Modifications par version :
 #Tableau récapitulatif
 
 | 18 | 17 | 16 | 15 | 14 | 13 | 12 | Column | Type | Description |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|--------|-----------|-----------|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|--------|-----------|-----------|
 | 18 | 17 | 16 | 15 | 14 | 13 | 12 |  userid | oid | pg_authid.oid OID de l'utilisateur qui a exécuté l'ordre SQL |
 | 18 | 17 | 16 | 15 | 14 | 13 | 12 |  dbid | oid | pg_database.oid OID de la base de données dans laquelle l'ordre SQL a été exécuté |
 | 18 | 17 | 16 | 15 | 14 |    |    |  toplevel | bool | True si la requête a été exécutée comme instruction de haut niveau (toujours true si pg_stat_statements.track est configuré à top) |
