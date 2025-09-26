@@ -1,24 +1,24 @@
-Evolution de la vue pg_stat_statements
+Evolution of the  pg_stat_statements view.
 
-Modifications par version :
+Modifications by version :
 
-18 Ajout de wal_buffers_full, parallel_workers_to_launch et parallel_workers_launched
+18 Added wal_buffers_full, parallel_workers_to_launch and parallel_workers_launched
 
-17 Ajout de stats_since et minmax_stats_since
+17 Added stats_since and minmax_stats_since
 
-16 blk_read_time et blk_write_time remplacés par shared_blk\_\*\_time et local_blk\_\*\_time
-16 Ajout de jit_deform_time
+16 blk_read_time and blk_write_time replaced by shared_blk\_\*\_time et local_blk\_\*\_time
+16 Added jit_deform_time
 
-15 mesures de jit\_\*
+15 Added jit\_\* counters
 
-14 Ajout d'un indicateur toplevel (bool)
+14 Added toplevel (bool) flag
 
-13 les champs total_time, min_time, max_time et stddev_time sont retirés et déclinés en \*\_exec_time et \*\_plan_time
-13 Ajout du compte de plans, de mesures wal\_\*, temp_blk_read_time et temp_blk_write_time
+13 The columns total_time, min_time, max_time and stddev_time were removed and correspondingly replaced by \*\_exec_time and \*\_plan_time counters
+13 Added counters: plans, wal\_\*, temp_blk_read_time and temp_blk_write_time
 
-12 Pas de chagement
+12 No changes from 11
 
-#Tableau récapitulatif
+#Table 
 
 | 18 | 17 | 16 | 15 | 14 | 13 | 12 | 11 | Column | Type | Description |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|--------|-----------|-----------|
