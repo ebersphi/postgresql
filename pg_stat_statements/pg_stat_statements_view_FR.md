@@ -1,24 +1,20 @@
 Evolution de la vue pg_stat_statements
 
-Modifications par version :
+## Modifications par version.
 
-18 Ajout de `wal_buffers_full`, `parallel_workers_to_launch` et `parallel_workers_launched`
++ 18 : Ajout de `wal_buffers_full`, `parallel_workers_to_launch` et `parallel_workers_launched`
++ 17 : Ajout de `stats_since` et `minmax_stats_since`
++ 16 : Les champs `blk_read_time` et `blk_write_time` remplacés par `shared_blk_*_time` et `local_blk_*_time` correspondants.
+   
+     Ajout de `jit_deform_time`
++ 15 : Ajout des compteurs `jit_*`
++ 14 : Ajout d'un indicateur `toplevel` (bool)
++ 13 : Les champs `total_time`, `min_time`, `max_time` et `stddev_time` sont retirés et déclinés en `*_exec_time` et `*_plan_time`.
 
-17 Ajout de `stats_since` et `minmax_stats_since`
+  Ajout des compteurs `plans`, `wal_*`, `temp_blk_read_time` et `temp_blk_write_time`.
++ Pas de changement entre les versions 10,11 et 12
 
-16 Les champs `blk_read_time` et `blk_write_time` remplacés par `shared_blk_*_time` et `local_blk_*_time` correspondants.
-16 Ajout de `jit_deform_time`
-
-15 Ajout des compteurs `jit_*`
-
-14 Ajout d'un indicateur `toplevel` (bool)
-
-13 Les champs `total_time`, `min_time`, `max_time` et `stddev_time` sont retirés et déclinés en `*_exec_time` et `*_plan_time`
-13 Ajout des compteurs `plans`, `wal_*`, `temp_blk_read_time` et `temp_blk_write_time`.
-
-12 Pas de changement entre les versions 10,11 et 12
-
-Tableau récapitulatif
+## Tableau récapitulatif
 
 | 18 | 17 | 16 | 15 | 14 | 13 | 12,11,10| Column | Type | Description |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|--------|-----------|-----------|
