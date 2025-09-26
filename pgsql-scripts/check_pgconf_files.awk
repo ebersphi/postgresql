@@ -1,12 +1,12 @@
 #!/bin/awk -f
 # -------------------------------------
 function usage() {
-   printf "\nusage: program [ options ] fichier.conf ...\n\n";
+   printf "\nusage: program [ options ] file.conf ...\n\n";
    printf "Reads a configuration file or more and follows the directive include=, include_dir= and include_dir_if_exists=\n";
    printf "Detect cycles and overwriting of settings\n\n" ;
    printf "options: -v LANG=" defaultLANG "\t\t if not provided, LANG is read from environment. Supported values: '" allowedLANG "'\n";
    printf "         -v stderr=/dev/stderr\t warning and error output.\n";
-   printf "         -v DEBUG=foo\t\t error output and more information are also written to /tmp/<number>.foo.debug\n";
+   printf "         -v DEBUG=foo\t\t error output and additional information are written to /tmp/<number>.foo.debug\n";
    printf "         -v HELP=Y |-v HELP=y\t print usage and quit.\n";
    printf "\n\n";
 }
@@ -276,12 +276,13 @@ FILENAME == skipFile { next; }
    dirStackCount=0;
    fileCount++;
    lineID=1;
-   cmd="dirname " FILENAME;
+   if ("/" != substr(FILENAME, 1, 1)) {
+      fileFullPath= workingDir "/" fileFullPath;
+   } else {
+      fileFullPath=FILENAME;
+   cmd="dirname " filefullPath;
    cmd | getline fileFullPath;
    close(cmd)
-   if ("/" != substr(fileFullPath, 1, 1)) {
-      fileFullPath= workingDir "/" fileFullPath;
-   }
    match(FILENAME, /[^/]+$/);
    baseFileName=substr(FILENAME, RSTART, RLENGTH);
    fullFileName=fileFullPath "/" baseFileName];
