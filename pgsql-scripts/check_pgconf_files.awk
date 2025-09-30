@@ -41,9 +41,7 @@ function get_text(defaultMsg) {
       error_message("[BUG:get_text() got undefined txtVariable]");
       return "[BUG:get_text() got undefined txtVariable]";
    }
-   # get message in current language, fallback to default message.
-   if (defaultLANG == currentLang )
-      return defaultMsg; 
+   # get message in current language, fallback to default message. 
    if ("" != txt[defaultMsg, currentLang])
       return txt[defaultMsg, currentLang];
    return defaultMsg;
@@ -163,7 +161,7 @@ function include_dir( directoryName) {
 }
 # -------------------------------------
 function process_line( theLine,    items, setting, isEnabled) {
-   # modifies: count[<setting>]=<counter>; enabled[<setting>,<count[setting]>])=<lineID>; lastDisabled[<setting>]=lineID; values[<lineID>]=<settingValue>
+   # modifies: count[<setting>]=<counter>; enabled[<setting>,count[<setting>]])=<lineID>; lastDisabled[<setting>]=lineID; values[<lineID>]=<settingValue>
    if (match(theLine, /^[[:blank:]]*(#*)([^# \t]+)[[:blank:]]*=[[:blank:]]*'([^']*)'/, items))
       debug_message( sprintf("%6d %24s %4d %60s | %s\n", lineID, FILENAME, NR, substr(gensub(theLine, "\t", " "),1,60), "[" items[1] "][" items[2] "][" items[3] "][" items[4] "][" items[5] "][" items[6] "]"));
    else 
@@ -248,7 +246,9 @@ BEGIN {
    }
    if ("" == LANG)
       LANG=substr( PROCENV["LANG"], 1, 2));
-   LANG=tolower(LANG)
+   if ("" == LANG)
+      LANG=defaultLANG;
+   LANG=tolower(LANG);
    if (index(allowedLANG, LANG) > 0) {
       currentLang=LANG;
    } else {
@@ -257,7 +257,7 @@ BEGIN {
    }
    "pwd" | getline workingDir ;
    close( "pwd");
-   debugMode=("" != DEBUG)
+   debugMode=("" != DEBUG);
    if (debugMode) {
       debugfile="/tmp/"  PROCINFO["pid"] "." DEBUG ".debug";
       if ("" == PROCINFO["pid"])
