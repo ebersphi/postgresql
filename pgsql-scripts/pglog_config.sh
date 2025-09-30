@@ -543,8 +543,8 @@ while [ $# -ne 0 ]; do
 done
 case "${fileOP}" in
    --enable)   configAction=enable;;
-   --disable)  configAction=disable
-   -f)         configAction=apply
+   --disable)  configAction=disable;;
+   -f)         configAction=apply;;
 esac
 get_if_already_in_use  WARNING
 [ "${fileCount}" -gt 0 ] || fail -2 "No matching files found"
