@@ -56,7 +56,7 @@ Modifications by version :
 | 18 | 17 | 16 | 15 | 14 | 13 | 12 | 11 |  local_blks_written   | bigint | Nombre total de blocs du cache local écrit sur disque par la requête |
 | 18 | 17 | 16 | 15 | 14 | 13 | 12 | 11 |  temp_blks_read   | bigint | Nombre total de blocs lus dans les fichiers temporaires par la requête |
 | 18 | 17 | 16 | 15 | 14 | 13 | 12 | 11 |  temp_blks_written   | bigint | Nombre total de blocs écrits dans les fichiers temporaires par la requête |
-| 18 | 17 | 16 |    |    |    |    |    | shared_blk_read_time   | double precision | Durée totale de lecture des blocs des fichiers de données (hors cache) par la requête, en millisecondes (si track_io_timing est activé, sinon zéro) |
+| 18 | 17 |    |    |    |    |    |    | shared_blk_read_time   | double precision | Durée totale de lecture des blocs des fichiers de données (hors cache) par la requête, en millisecondes (si track_io_timing est activé, sinon zéro) |
 | 18 | 17 |    |    |    |    |    |    | shared_blk_write_time   | double precision | Durée totale de l'écriture des blocs des fichiers de données (hors cache) par la requête, en millisecondes (si track_io_timing est activé, sinon zéro) |
 |    |    | 16 | 15 | 14 | 13 | 12 | 11 | blk_read_time   | double precision | Durée totale de lecture des blocs des fichiers de données (hors cache) par la requête, en millisecondes (si track_io_timing est activé, sinon zéro) |
 |    |    | 16 | 15 | 14 | 13 | 12 | 11 | blk_write_time  | double precision | Durée totale de l'écriture des blocs des fichiers de données (hors cache) par la requête, en millisecondes (si track_io_timing est activé, sinon zéro) |
