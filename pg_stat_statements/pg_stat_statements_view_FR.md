@@ -4,14 +4,14 @@ Evolution de la vue pg_stat_statements
 
 + 18 : Ajout de `wal_buffers_full`, `parallel_workers_to_launch` et `parallel_workers_launched`
 + 17 : Ajout de `stats_since` et `minmax_stats_since`
-+ 16 : Les champs `blk_read_time` et `blk_write_time` remplacés par `shared_blk_*_time` et `local_blk_*_time` correspondants.
++ 16 : Les compteurs `blk_read_time` et `blk_write_time` remplacés par `shared_blk_*_time` et `local_blk_*_time` correspondants.
    
      Ajout de `jit_deform_time`
-+ 15 : Ajout des compteurs `jit_*`
++ 15 : Ajout des compteurs `jit_*`, `temp_blk_read_time`, `temp_blk_write_time`
 + 14 : Ajout d'un indicateur `toplevel` (bool)
 + 13 : Les champs `total_time`, `min_time`, `max_time` et `stddev_time` sont retirés et déclinés en `*_exec_time` et `*_plan_time`.
 
-  Ajout des compteurs `plans`, `wal_*`, `temp_blk_read_time` et `temp_blk_write_time`.
+  Ajout des compteurs `plans`, `wal_*`.
 + Pas de changement entre les versions 10,11 et 12
 
 ## Tableau récapitulatif
@@ -57,8 +57,8 @@ Evolution de la vue pg_stat_statements
 |    |    |    | 15 | 14 | 13 | 12 | blk_write_time  | double precision | Durée totale de l'écriture des blocs des fichiers de données (hors cache) par la requête, en millisecondes (si `track_io_timing` est activé, sinon zéro) |
 | 18 | 17 | 16 |    |    |    |    | local_blk_read_time   | double precision | Durée totale totale de lecture de blocs locaux, en millisecondes (si `track_io_timing` est activé, sinon zéro) |
 | 18 | 17 | 16 |    |    |    |    | local_blk_write_time   | double precision | Durée toale totale d'écriture de blocs locaux, en millisecondes (si `track_io_timing` est activé, sinon zéro) |
-| 18 | 17 | 16 | 15 | 14 | 13 |    | temp_blk_read_time    | double precision | Durée totale des lectures des blocs de fichiers temporaires en millisecondes (si `track_io_timing` est activé, sinon zéro) |
-| 18 | 17 | 16 | 15 | 14 | 13 |    | temp_blk_write_time    | double precision | Durée totale des écritures des blocs de fichiers temporaires en millisecondes (si `track_io_timing` est activé, sinon zéro) |
+| 18 | 17 | 16 | 15 |    |    |    | temp_blk_read_time    | double precision | Durée totale des lectures des blocs de fichiers temporaires en millisecondes (si `track_io_timing` est activé, sinon zéro) |
+| 18 | 17 | 16 | 15 |    |    |    | temp_blk_write_time    | double precision | Durée totale des écritures des blocs de fichiers temporaires en millisecondes (si `track_io_timing` est activé, sinon zéro) |
 | 18 | 17 | 16 | 15 | 14 | 13 |    | wal_records   | bigint | Nombre total d'enregistrements générés dans les WAL par la requête |
 | 18 | 17 | 16 | 15 | 14 | 13 |    | wal_fpi   | bigint | Nombre total d'images complètes de blocs (full page images) générés dans les WAL par la requête |
 | 18 | 17 | 16 | 15 | 14 | 13 |    | wal_bytes   | bigint | Nombre total d'octets générés dans les WAL par la requête |
