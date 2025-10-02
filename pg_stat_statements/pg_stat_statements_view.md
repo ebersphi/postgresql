@@ -5,9 +5,10 @@ Modifications by version :
 18 Added wal_buffers_full, parallel_workers_to_launch and parallel_workers_launched
 
 17 Added stats_since and minmax_stats_since
+17 blk_read_time and blk_write_time replaced by shared_blk\_\*\_time et local_blk\_\*\_time
+17 Added jit_deform_time
 
-16 blk_read_time and blk_write_time replaced by shared_blk\_\*\_time et local_blk\_\*\_time
-16 Added jit_deform_time
+16 no changes from 15
 
 15 Added jit\_\* counters
 
@@ -16,7 +17,7 @@ Modifications by version :
 13 The columns total_time, min_time, max_time and stddev_time were removed and correspondingly replaced by \*\_exec_time and \*\_plan_time counters
 13 Added counters: plans, wal\_\*, temp_blk_read_time and temp_blk_write_time
 
-12 No changes from 11
+12 No changes from 11 and 10
 
 #Table 
 
@@ -56,11 +57,11 @@ Modifications by version :
 | 18 | 17 | 16 | 15 | 14 | 13 | 12 | 11 |  temp_blks_read   | bigint | Nombre total de blocs lus dans les fichiers temporaires par la requête |
 | 18 | 17 | 16 | 15 | 14 | 13 | 12 | 11 |  temp_blks_written   | bigint | Nombre total de blocs écrits dans les fichiers temporaires par la requête |
 | 18 | 17 | 16 |    |    |    |    |    | shared_blk_read_time   | double precision | Durée totale de lecture des blocs des fichiers de données (hors cache) par la requête, en millisecondes (si track_io_timing est activé, sinon zéro) |
-| 18 | 17 | 16 |    |    |    |    |    | shared_blk_write_time   | double precision | Durée totale de l'écriture des blocs des fichiers de données (hors cache) par la requête, en millisecondes (si track_io_timing est activé, sinon zéro) |
-|    |    |    | 15 | 14 | 13 | 12 | 11 | blk_read_time   | double precision | Durée totale de lecture des blocs des fichiers de données (hors cache) par la requête, en millisecondes (si track_io_timing est activé, sinon zéro) |
-|    |    |    | 15 | 14 | 13 | 12 | 11 | blk_write_time  | double precision | Durée totale de l'écriture des blocs des fichiers de données (hors cache) par la requête, en millisecondes (si track_io_timing est activé, sinon zéro) |
-| 18 | 17 | 16 |    |    |    |    |    | local_blk_read_time   | double precision | Durée totale totale de lecture de blocs locaux, en millisecondes (si track_io_timing est activé, sinon zéro) |
-| 18 | 17 | 16 |    |    |    |    |    | local_blk_write_time   | double precision | Durée toale totale d'écriture de blocs locaux, en millisecondes (si track_io_timing est activé, sinon zéro) |
+| 18 | 17 |    |    |    |    |    |    | shared_blk_write_time   | double precision | Durée totale de l'écriture des blocs des fichiers de données (hors cache) par la requête, en millisecondes (si track_io_timing est activé, sinon zéro) |
+|    |    | 16 | 15 | 14 | 13 | 12 | 11 | blk_read_time   | double precision | Durée totale de lecture des blocs des fichiers de données (hors cache) par la requête, en millisecondes (si track_io_timing est activé, sinon zéro) |
+|    |    | 16 | 15 | 14 | 13 | 12 | 11 | blk_write_time  | double precision | Durée totale de l'écriture des blocs des fichiers de données (hors cache) par la requête, en millisecondes (si track_io_timing est activé, sinon zéro) |
+| 18 | 17 |    |    |    |    |    |    | local_blk_read_time   | double precision | Durée totale totale de lecture de blocs locaux, en millisecondes (si track_io_timing est activé, sinon zéro) |
+| 18 | 17 |    |    |    |    |    |    | local_blk_write_time   | double precision | Durée toale totale d'écriture de blocs locaux, en millisecondes (si track_io_timing est activé, sinon zéro) |
 | 18 | 17 | 16 | 15 | 14 | 13 |    |    | temp_blk_read_time    | double precision | Durée totale des lectures des blocs de fichiers temporaires en millisecondes (si track_io_timing est activé, sinon zéro) |
 | 18 | 17 | 16 | 15 | 14 | 13 |    |    | temp_blk_write_time    | double precision | Durée totale des écritures des blocs de fichiers temporaires en millisecondes (si track_io_timing est activé, sinon zéro) |
 | 18 | 17 | 16 | 15 | 14 | 13 |    |    | wal_records   | bigint | Nombre total d'enregistrements générés dans les WAL par la requête |
