@@ -36,33 +36,61 @@ printmsg()
 }
 # -------------------------------------
 set_db_params()
-{
-   if  [ -z "${param_dbConf:-*}" ]; then
-      if [ -n "${env_dbConf:-}" ]; then
-         eval param_dbConf="'${$env_dbConf}'"
-      elif [ -n "${PGDATA:-}" ]; then
-         if [ -r "$PGDATA/postgresql.conf" ]; then
-            param_dbConf="$PGDATA/postgresql.conf"
-         fi
+{  
+   [ -z "${param_dbConf:-}" ] || return
+   if [ -n "${env_dbConf:-}" ]; then
+      eval param_dbConf="'${$env_dbConf}'"
+   elif [ -n "${PGDATA:-}" ]; then
+      if [ -r "$PGDATA/postgresql.conf" ]; then
+         param_dbConf="$PGDATA/postgresql.conf"
       fi
    fi
-   cd
+   [ -n "${param_dbConf:-}" ] || fail "cannot determine postgresql.conf location"
 }
 # -------------------------------------
 read_parameters_from_files()
 {  # file: /tmp/$$.fromfiles /tmp/$$.allfromfiles
    [ -s "$param_dbConf" ] || fail "File not found or empty '$param_dbConf'" 
    [ -r "$param_dbConf" ] || fail "Cannot read file '$param_dbConf'"
+   awk '
+   /^[[:space:]]*#/ {next;}
+   !/[[:space:]]*[^=]+[[:space:]]*=[[:space:]]*[^#]+/{ next; }
+   {    # Extract Setting and Value
+        if (match($0,
+            /^[[:space:]]*(#+[[:space:]]*)?([A-Za-z0-9_]+)[[:space:]]*=[[:space:]]*/,
+            h))
+        {   Prefix = substr($0, RSTART + RLENGTH)
+            Setting = h[2];
+            # Now detect quoted or unquoted value
+            if (match(Prefix, /^"[^"]*"/) ||
+                match(Prefix, /^'[^']*'/))
+            {   Value = substr(Prefix, RSTART, RLENGTH)
+                Rest  = substr(Prefix, RSTART + RLENGTH)
+            }
+            else if (match(Prefix, /^[^#[:space:]]+/))
+            {   Value = substr(Prefix, RSTART, RLENGTH)
+                Rest  = substr(Prefix, RSTART + RLENGTH)
+            }
+        
+            # Extract comment
+            if (match(Rest, /#[[:space:]]*(.*)$/, c))
+                Comment = c[1]
+            printf "Setting=[%s]  Value=[%s]  Comment=[%s]\n",
+                       Setting, Value, Comment
+        }
+        }
+   ' "$param_dbConf" > /tmp/$$.fromMainConf
 }
 # -------------------------------------
 read_parameters_from_db()
 {  # file: /tmp/$$.fromdb
    [ -n "$param_dbCnx" ] || fail "Cannot connect to database"
-   exec_sql "SELECT  FROM pg_settings" > /tmp/$$.DbSettings
-   awk -F ";" -v fmod="/tmp/$$.currentFromDb" -v fall="/tmp/$$.allFromDb"  '
-{  print Name, Value > fall;
-   if ( 0 != IsModified) print Name, Value > fmod;
-}' /tmp/$$.DbSettings 
+   exec_sql "SELECT !TODO! FROM pg_settings" > /tmp/$$.DbSettings
+   awk -F ";" -v Fmod="/tmp/$$.currentFromDb" -v Fall="/tmp/$$.allFromDb"  '
+    {  Name=$1; Value=$2;
+       print Name, Value >> Fall;
+       if ( 0 != IsModified) print Name, Value >> Fmod;
+    }' /tmp/$$.DbSettings 
 }
 can_exec_psql() 
 {
